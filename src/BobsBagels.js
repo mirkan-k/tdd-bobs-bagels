@@ -67,13 +67,26 @@ class BasketPublic {
 
     checkout() {
         let basketTotal = 0
+        
         if (this.basket.length !== 0) {
+            this.applyOnionOffer()
             this.basket.map(menuItem => basketTotal += menuItem.quantity * menuItem.price)
+            console.log(basketTotal)
             return Number(basketTotal.toFixed(2))
         }
         return "Your Basket is empty, please continue shopping."
     }
-    
+
+    applyOnionOffer() {
+        const onionBagel = this.basket.find(item => item.sku === 'BGLO')
+        const onionDiscount = (100 - 15.31)/100
+        const onionDiscountThreshold = 6
+
+        if (onionBagel.quantity >= onionDiscountThreshold) {
+            onionBagel.price *= onionDiscount
+        }
+    }
+
     test() {
         return this.stock
     }
@@ -85,11 +98,12 @@ const basketPublic = new BasketPublic()
 // console.log(basketPublic.checkMaxCapacity())
 // console.log(basketPublic.addItem("BGSE", 2))
 // console.log(basketPublic.addItem("COF", 2))
-// console.log(basketPublic.addItem("BGLS"))
+console.log(basketPublic.addItem("BGLO", 6))
 // console.log(basketPublic.removeItem("COF"))
 // console.log(basketPublic.getCurrentCapacity())
 // console.log(basketPublic.checkMaxCapacity())
 // console.log(basketPublic.checkPrice("COF", 3))
+// console.log(basketPublic.applyOnionOffer())
 console.log(basketPublic.checkout())
 // console.log(basketPublic.test())
 

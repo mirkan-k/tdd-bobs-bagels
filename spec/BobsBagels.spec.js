@@ -169,4 +169,66 @@ describe("BasketPublic", () => {
     // verify
     expect(result).toEqual("Your Basket is empty, please continue shopping.")
   });
+
+  //Extension 1:
+  it("checks if Onion Bagel Special Offer of 15.31% is applied when quantity is 6 or higher", () => {
+    // set up
+    const basketPublic = new BasketPublic()
+    const onionDiscount = (100 - 15.31)/100
+    const menuItem = {
+      "sku": "BGLO",
+      "price": 0.49,
+      "name": "Bagel",
+      "variant": "Onion"
+    }
+    let amountOfItem = 6
+    
+    const expected = Number(((menuItem.price * amountOfItem) * onionDiscount).toFixed(2))
+    // execute
+    const result = basketPublic.checkout("BGLO", amountOfItem)
+    // verify
+    expect(result).toEqual(expected)
+  });
+
+  // it("checks if Plain Bagel Special Offer of 14.74% is applied when quantity is 12 or higher", () => {
+  //   // set up
+  //   const basketPublic = new BasketPublic()
+  //   basketPublic.addItem("BGLP")
+  //   basketPublic.addItem("COF")
+  //   basketPublic.addItem("BGSE")
+    
+  //   const expected = 4.37;
+  //   // execute
+  //   const result = basketPublic.checkout()
+  //   // verify
+  //   expect(result).toEqual(expected)
+  // });
+
+  // it("checks if Everything Bagel Special Offer of 15.31% is applied when quantity is 6 or higher", () => {
+  //   // set up
+  //   const basketPublic = new BasketPublic()
+  //   basketPublic.addItem("BGLP")
+  //   basketPublic.addItem("COF")
+  //   basketPublic.addItem("BGSE")
+    
+  //   const expected = 4.37;
+  //   // execute
+  //   const result = basketPublic.checkout()
+  //   // verify
+  //   expect(result).toEqual(expected)
+  // });
+
+  // it("checks if Coffee and Plain Bagel Special Offer of 9.42% is applied when both items are included in Basket", () => {
+  //   // set up
+  //   const basketPublic = new BasketPublic()
+  //   basketPublic.addItem("BGLP")
+  //   basketPublic.addItem("COF")
+  //   basketPublic.addItem("BGSE")
+    
+  //   const expected = 4.37;
+  //   // execute
+  //   const result = basketPublic.checkout()
+  //   // verify
+  //   expect(result).toEqual(expected)
+  // });
 })

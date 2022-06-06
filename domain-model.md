@@ -37,5 +37,14 @@
   - checkPrice(inputs: itemSku, numOfItems): return price of menuItem * numOfItems if itemSku & numOfItems is valid else error msg.
   - checkout(): return total sum of menuItems in Basket, if Basket is empty then return error msg.
 
-## BobsBagelsStaff (class)
-// no need to do this, add constructor parameter (maxCapacity)
+- Extenstion METHODS (functions)
+  - onionOffer(): return price of BGLO Special Offer(15.31%)
+  - plainOffer(): return price of BGLP Special Offer(14.74%)
+  - everythingOffer(): return price of BGLE Special Offer(15.31%)
+  - coffeeOffer(): return price of COF and BGLP Special Offer(9.24%)
+    - 6 bagel onion discount = 84.69% || 15.31%
+    - 12 bagel plain discount = 85.26% || 14.74%
+    - 6 bagel everything discount = 84.69% || 15.31%
+    - coffee and bagel plain discount = 90.58% || 9.42%
+
+  - 
