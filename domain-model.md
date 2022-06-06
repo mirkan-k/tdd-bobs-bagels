@@ -35,6 +35,7 @@
   - changeMaxCapacity(input: newCapacity): return this.maxCapacity after replacing it with newCapacity.
   
   - checkPrice(inputs: itemSku, numOfItems): return price of menuItem * numOfItems if itemSku & numOfItems is valid else error msg.
+  - checkout(): return total sum of menuItems in Basket, if Basket is empty then return error msg.
 
 ## BobsBagelsStaff (class)
 // no need to do this, add constructor parameter (maxCapacity)

@@ -60,11 +60,20 @@ class BasketPublic {
             const newItem = {
                 ...this.stock.find(element => element.sku === itemSku),
             }
-            return (newItem.price * numOfItems).toFixed(2)
+            return Number((newItem.price * numOfItems).toFixed(2))
         }
         return "This Item Does Not Exist or you may have entered an Invalid Quantity :("
     }
 
+    checkout() {
+        let basketTotal = 0
+        if (this.basket.length !== 0) {
+            this.basket.map(menuItem => basketTotal += menuItem.quantity * menuItem.price)
+            return Number(basketTotal.toFixed(2))
+        }
+        return "Your Basket is empty, please continue shopping."
+    }
+    
     test() {
         return this.stock
     }
@@ -76,11 +85,12 @@ const basketPublic = new BasketPublic()
 // console.log(basketPublic.checkMaxCapacity())
 // console.log(basketPublic.addItem("BGSE", 2))
 // console.log(basketPublic.addItem("COF", 2))
-// console.log(basketPublic.addItem("BGSE"))
+// console.log(basketPublic.addItem("BGLS"))
 // console.log(basketPublic.removeItem("COF"))
 // console.log(basketPublic.getCurrentCapacity())
 // console.log(basketPublic.checkMaxCapacity())
-console.log(basketPublic.checkPrice("COF", 3))
+// console.log(basketPublic.checkPrice("COF", 3))
+console.log(basketPublic.checkout())
 // console.log(basketPublic.test())
 
 module.exports = {

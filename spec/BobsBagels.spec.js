@@ -131,10 +131,42 @@ describe("BasketPublic", () => {
       ]
     }
     
-    const expected = (menuItem.price * 2).toFixed(2)
+    const expected = Number((menuItem.price * 2).toFixed(2))
     // execute
     const result = basketPublic.checkPrice("BGSS", 2)
     // verify
     expect(result).toEqual(expected)
+  });
+
+  it("shows error msg when checking price with invalid inputs", () => {
+    // set up
+    const basketPublic = new BasketPublic()
+    // execute
+    const result = basketPublic.checkPrice("ABCDEFG", 2)
+    // verify
+    expect(result).toEqual("This Item Does Not Exist or you may have entered an Invalid Quantity :(")
+  });
+
+  it("checks total sum of basket", () => {
+    // set up
+    const basketPublic = new BasketPublic()
+    basketPublic.addItem("BGLP")
+    basketPublic.addItem("COF")
+    basketPublic.addItem("BGSE")
+    
+    const expected = 4.37;
+    // execute
+    const result = basketPublic.checkout()
+    // verify
+    expect(result).toEqual(expected)
+  });
+
+  it("shows error msg if basket is empty when trying to checkout", () => {
+    // set up
+    const basketPublic = new BasketPublic()
+    // execute
+    const result = basketPublic.checkout()
+    // verify
+    expect(result).toEqual("Your Basket is empty, please continue shopping.")
   });
 })
