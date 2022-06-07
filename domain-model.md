@@ -38,13 +38,7 @@
   - checkout(): return total sum of menuItems in Basket, if Basket is empty then return error msg.
 
 - Extenstion METHODS (functions)
-  - onionOffer(): return price of BGLO Special Offer(15.31%)
-  - plainOffer(): return price of BGLP Special Offer(14.74%)
-  - everythingOffer(): return price of BGLE Special Offer(15.31%)
-  - coffeeOffer(): return price of COF and BGLP Special Offer(9.24%)
-    - 6 bagel onion discount = 84.69% || 15.31%
-    - 12 bagel plain discount = 85.26% || 14.74%
-    - 6 bagel everything discount = 84.69% || 15.31%
-    - coffee and bagel plain discount = 90.58% || 9.42%
-
-  - 
+  - onionOffer(): apply Special Offer Price '2.49' for every '6' amount of Onion Bagels in basket
+  - plainOffer(): apply Special Offer Price '3.99' for every '12' amount of Plain Bagels in basket
+  - everythingOffer(): apply Special Offer Price '2.49' for every '6' amount of Everything Bagels in basket
+  - coffeeOffer(): apply Special Offer Price '1.25' for every 1:1 amount of Plain Bagels and Coffee in basket

@@ -65,46 +65,114 @@ class BasketPublic {
         return "This Item Does Not Exist or you may have entered an Invalid Quantity :("
     }
 
+    applyOnionOffer() {
+        const onionBagel = this.basket.find(e => e.sku === 'BGLO')
+        let specialOffer = 2.49
+        let specialOfferNum = 6
+        const remainder = onionBagel.quantity % specialOfferNum
+        const calculatedQuantity = onionBagel.quantity - remainder
+
+        const appliedOffer = (calculatedQuantity/specialOfferNum) * specialOffer
+        const pricePostOffer = Number(((remainder * onionBagel.price) + appliedOffer).toFixed(2))
+
+        return pricePostOffer
+    }
+
+    applyPlainOffer() {
+        const plainBagel = this.basket.find(e => e.sku === 'BGLP')
+        let specialOffer = 3.99
+        let specialOfferNum = 12
+        const remainder = plainBagel.quantity % specialOfferNum
+        const calculatedQuantity = plainBagel.quantity - remainder
+
+        const appliedOffer = (calculatedQuantity/specialOfferNum) * specialOffer
+        const pricePostOffer = Number(((remainder * plainBagel.price) + appliedOffer).toFixed(2))
+        
+        return pricePostOffer
+    }
+
+    applyEverythingOffer() {
+        const everythingBagel = this.basket.find(e => e.sku === 'BGLE')
+        let specialOffer = 2.49
+        let specialOfferNum = 6
+        const remainder = everythingBagel.quantity % specialOfferNum
+        const calculatedQuantity = everythingBagel.quantity - remainder
+
+        const appliedOffer = (calculatedQuantity/specialOfferNum) * specialOffer
+        const pricePostOffer = Number(((remainder * everythingBagel.price) + appliedOffer).toFixed(2))
+
+        return pricePostOffer
+    }
+
+    applyCoffeeOffer() {
+        const coffee = this.basket.find(e => e.sku === 'COF')
+        const plainBagel = this.basket.find(e => e.sku === 'BGLP')
+        let specialOffer = 0.86
+        let plainSpecialOfferNum = 12
+        const remainder = plainBagel.quantity % plainSpecialOfferNum
+
+        let appliedQuantity = 0
+        if (coffee.quantity >= remainder) {
+            appliedQuantity += remainder
+        } else if (coffee.quantity < remainder) {
+            appliedQuantity += coffee.quantity
+        };
+        
+        const calculatedQuantity = coffee.quantity - appliedQuantity
+        const appliedOffer = appliedQuantity * specialOffer
+        const pricePostOffer = Number(((coffee.price * calculatedQuantity) + appliedOffer).toFixed(2))
+        
+        return pricePostOffer
+    }
+
     checkout() {
         let basketTotal = 0
         
         if (this.basket.length !== 0) {
-            this.applyOnionOffer()
-            this.basket.map(menuItem => basketTotal += menuItem.quantity * menuItem.price)
-            console.log(basketTotal)
+            for (let i = 0; i < this.basket.length; i++) {
+                    if (this.basket[i].sku === 'BGLO') {
+                        basketTotal += this.applyOnionOffer();
+                        // console.log('onion', basketTotal)
+                    } else if (this.basket[i].sku === 'BGLP') {
+                        basketTotal += this.applyPlainOffer()
+                        // console.log('plain', basketTotal)
+                    } else if (this.basket[i].sku === 'BGLE') {
+                        basketTotal += this.applyEverythingOffer()
+                        // console.log('everything variant', basketTotal)
+                    } 
+                    else if (this.basket[i].sku === 'COF' && this.basket.some(e => e.sku === 'BGLP')) {
+                        basketTotal += this.applyCoffeeOffer()
+                        // console.log('coffee', basketTotal)
+                    } 
+                    else {
+                        basketTotal += this.basket[i].quantity * this.basket[i].price
+                    }
+            }
             return Number(basketTotal.toFixed(2))
         }
         return "Your Basket is empty, please continue shopping."
     }
 
-    applyOnionOffer() {
-        const onionBagel = this.basket.find(item => item.sku === 'BGLO')
-        const onionDiscount = (100 - 15.31)/100
-        const onionDiscountThreshold = 6
-
-        if (onionBagel.quantity >= onionDiscountThreshold) {
-            onionBagel.price *= onionDiscount
-        }
-    }
 
     test() {
         return this.stock
     }
 }
 
-const basketPublic = new BasketPublic()
+// const basketPublic = new BasketPublic(30)
 
 // console.log(basketPublic.addItem("BGSE", 4))
 // console.log(basketPublic.checkMaxCapacity())
-// console.log(basketPublic.addItem("BGSE", 2))
+// console.log(basketPublic.addItem("BGLO", 12))
+// console.log(basketPublic.addItem("BGLP", 11))
 // console.log(basketPublic.addItem("COF", 2))
-console.log(basketPublic.addItem("BGLO", 6))
+// console.log(basketPublic.addItem("BGLE", 2))
 // console.log(basketPublic.removeItem("COF"))
 // console.log(basketPublic.getCurrentCapacity())
 // console.log(basketPublic.checkMaxCapacity())
 // console.log(basketPublic.checkPrice("COF", 3))
-// console.log(basketPublic.applyOnionOffer())
-console.log(basketPublic.checkout())
+// console.log(basketPublic.applyCoffeeOffer())
+// console.log(basketPublic.checkout())
 // console.log(basketPublic.test())
 
 module.exports = {
